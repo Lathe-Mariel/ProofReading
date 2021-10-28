@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+mainClassName = 'ProofReading.DriveQuickstart'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    jcenter()
+    
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation     'junit:junit:4.13'
+    
+    compile 'com.google.api-client:google-api-client:1.23.0'
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    compile 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+}
+
+jar {
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    manifest {
+        attributes 'Main-Class': 'ProofReading.DriveQuickstart'
+    }
+
+}
